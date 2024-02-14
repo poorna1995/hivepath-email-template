@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Welcome to Firebase Hosting</title>
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<style>
+			body {
+				font-size: 14px;
+				padding: 20px;
+			}
+			td {
+				padding: 24px;
+			}
+			table {
+				table-layout: fixed;
+				word-wrap: break-word;
+			}
+			.header1 {
+				border: 1px solid black;
+				text-align: center;
+				padding: 10px;
+				background: #bdbdc8;
+				font-weight: bold;
+			}
+			.header2 {
+				text-align: center;
+				padding: 5px;
+				background: #e3e37a;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<ul class="nav nav-pills">
+			<li class="active">
+				<a data-toggle="pill" href="#emails">Email Templates</a>
+			</li>
+			<li><a data-toggle="pill" href="#notifications">Notifications</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="emails" class="tab-pane fade in active">
+				<div style="display: flex; justify-content: space-between">
+					<h3>Hivepath email templates</h3>
+					<button
+						type="button"
+						class="btn btn-info btn-lg pull-right"
+						data-toggle="modal"
+						data-target="#myModal"
+						style="margin-bottom: 20px"
+					>
+						Add email data
+					</button>
+				</div>
+
+				<table class="table table-bordered" id="dataTable">
+					<tbody id="tableBody" class="text-center"></tbody>
+				</table>
+			</div>
+			<div id="notifications" class="tab-pane fade">
+				<div style="display: flex; justify-content: space-between">
+					<h3>Hivepath Notifications</h3>
+					<button
+						type="button"
+						class="btn btn-info btn-lg pull-right"
+						style="margin-bottom: 20px"
+					>
+						Add notification data
+					</button>
+				</div>
+
+				<table class="table table-bordered" id="notificationDataTable">
+					<tbody id="notificationTableBody" class="text-center"></tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Add data Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							&times;
+						</button>
+						<h4 class="modal-title">Add data</h4>
+					</div>
+					<div class="modal-body">
+						<form id="dataForm">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Type</label>
+								<select
+									class="form-control"
+									id="type"
+									placeholder="category"
+									required
+								>
+									<option value="All">All</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="exampleInputEmail1">Category</label>
+								<select
+									class="form-control"
+									id="category"
+									placeholder="category"
+									required
+								></select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Title</label>
+								<input
+									class="form-control"
+									id="title"
+									placeholder="title"
+									required
+								/>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Subject</label>
+								<input
+									class="form-control"
+									id="subject"
+									placeholder="subject"
+									required
+								/>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Time of action</label>
+								<input
+									class="form-control"
+									id="toa"
+									placeholder="time of action"
+									required
+								/>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Template link</label>
+								<input
+									class="form-control"
+									id="link"
+									placeholder="template link"
+									required
+								/>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Dependency</label>
+
+								<select
+									class="form-control"
+									id="dependency"
+									placeholder="dependency"
+									multiple
+									required
+								></select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">Mobile compatible</label>
+
+								<select
+									class="form-control"
+									id="mobile_compatible"
+									placeholder="mobile_compatible"
+									required
+								>
+									<option value="true">Yes</option>
+									<option value="false">No</option>
+								</select>
+							</div>
+
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			$(document).ready(function () {
+				tableCreate(); // email templates
+				notificationTableCreate(); // notifications
+				getCategories();
+				getDependencies();
+			});
+
+			// email templates functions
+			$("#dataForm").submit(function (e) {
+				e.preventDefault();
+				addData();
+			});
+
+			function tableCreate() {
+				const fetchDataUrl =
+					"https://utils.hivepath.io/api/notificationMasterEmails";
+				$.ajax({
+					type: "POST",
+					url: fetchDataUrl,
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify({}),
+					success: function (response) {
+						//if request if made successfully then the response represent the data
+						const { status, result } = response; //result
+						if (status === "success") {
+							// const result = data.result || []; //----------------------------------------
+							let table_data = {};
+							result.forEach((item) => {
+								if (item.category in table_data) {
+									table_data[item.category].push(item);
+								} else {
+									table_data[item.category] = [item];
+								}
+							});
+
+							let currentRow = "";
+
+							Object.keys(table_data).forEach((item) => {
+								let count = 0;
+								$("#tableBody").append(
+									`<tr class="header1"><td colspan="9" align="center">${item}</td></tr>
+													<tr class="header2">
+														<td>S no.</td>
+														<td>User type</td>
+														<td>Email title</td>
+														<td>Email subject</td>
+														<td>Time of Action</td>
+														<td>Metadata</td>
+														<td>View template</td>
+														<td>Download</td>
+														<td>Mobile compatibility</td>
+													</tr>`
+								);
+
+								table_data[item].forEach((item) => {
+									currentRow = `<tr>`;
+									count++;
+									const {
+										email_subject,
+										email_title,
+										http_link,
+										time_of_action,
+										type,
+										mobile_compatible,
+										metadata,
+									} = item;
+
+									let viewLink = `<a href="${http_link}" target="_blank">View</a>`;
+									let downloadLink = `<a href="${http_link}" target="_blank" download="template">Download</a>`;
+									if (!http_link) {
+										viewLink = "";
+										downloadLink = "";
+									}
+									const metadata_split = metadata
+										.map((item) => item.key)
+										.join(",");
+
+									currentRow += `
+													<td>${count}</td>
+													<td>${type}</td>
+													<td>${email_title}</td>
+													<td>${email_subject}</td>
+													<td>${time_of_action}</td>
+													<td>${metadata_split}</td>
+													<td>${viewLink}</td>
+													<td>${downloadLink}</td>
+													<td>${mobile_compatible}</td>
+												`;
+									currentRow += "</tr>";
+									$("#tableBody").append(`${currentRow}`);
+								});
+							});
+						} else {
+							alert("There was an error in fetching the data.");
+							console.log(response);
+						}
+					},
+					error: function (response) {
+						alert("There was an error, please try again");
+						console.log(response);
+					},
+				});
+			}
+
+			function addData() {
+				const fetchDataUrl =
+					"https://utils.hivepath.io/api/saveMasterEmailTemplate";
+				const category = $("#category").val();
+				const type = $("#type").val();
+				const mobile_compatible = $("#mobile_compatible").val();
+				const title = $("#title").val();
+				const subject = $("#subject").val();
+				const toa = $("#toa").val();
+				const link = $("#link").val();
+				const dependency = $("#dependency").val();
+
+				const selectedOptions = $("#dependency").find(":selected");
+				const metadata = [];
+				selectedOptions.each((index) => {
+					const value = $(selectedOptions[index]).val();
+					const key_id = $(selectedOptions[index]).data("key_id");
+					const metaObj = { key_id, key_id, key: value };
+					metadata.push(metaObj);
+				});
+
+				const requestData = {
+					category: category,
+					type: type,
+					http_link: link,
+					email_title: title,
+					email_subject: subject,
+					time_of_action: toa,
+					mobile_compatible: mobile_compatible,
+					metadata: metadata,
+				};
+
+				$.ajax({
+					type: "POST",
+					url: fetchDataUrl,
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(requestData),
+					success: function (response) {
+						const { status, message } = response;
+						if (status === "success") {
+							$("#dataForm").trigger("reset");
+							window.location.reload();
+						} else {
+							alert(message);
+						}
+					},
+					error: function (response) {
+						alert("Error occured while adding the data");
+						console.log(response);
+					},
+				});
+			}
+
+			function getCategories() {
+				const fetchDataUrl =
+					"https://utils.hivepath.io/api/notificationMasterCategory";
+
+				$.ajax({
+					type: "POST",
+					url: fetchDataUrl,
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify({}),
+					success: function (response) {
+						$("#category").empty();
+						const { result } = response;
+						result.forEach((item) => {
+							const { cat_id, description, key } = item;
+							$("#category").append(
+								`<option value="${key}">${description}</option>`
+							);
+						});
+					},
+					error: function (response) {
+						alert("Error occured while fetching the categories");
+						console.log(response);
+					},
+				});
+			}
+
+			function getDependencies() {
+				const fetchDataUrl =
+					"https://utils.hivepath.io/api/notificationMasterKeys";
+
+				$.ajax({
+					type: "POST",
+					url: fetchDataUrl,
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify({}),
+					success: function (response) {
+						$("#dependency").empty();
+						const { result } = response;
+						result.forEach((item) => {
+							const { key_id, description, key } = item;
+							$("#dependency").append(
+								`<option value="${key}" data-key_id="${key_id}">${description}</option>`
+							);
+						});
+					},
+					error: function (response) {
+						alert("Error occured while fetching the categories");
+						console.log(response);
+					},
+				});
+			}
+
+			// notification functions
+
+			const notificationData = [
+				{
+					type: "All",
+					notification_description:
+						"User Profile Onboarding - Finish up in 2 minutes! - Please complete your user profile onboarding",
+					one_liner:
+						"Welcom to Hivepath! Lets get started with your profile onboarding",
+					time_of_action:
+						"[Notify] Notify the user in 24 hours to complete profile onboarding",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "All",
+					notification_description:
+						"Incomplete user profile onboarding - reminder to complete",
+					one_liner:
+						"You are missing out! Complete user profile onboarding to unlock many features.",
+					time_of_action:
+						"Send this when user leaves user profile onboarding in the middle",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "All",
+					notification_description:
+						"Profile Information Approved - Your User Profile onboarding is complete and updated!",
+					one_liner:
+						"Congratulations! Your user profile details has been approved and live now!",
+					time_of_action:
+						"[Completion] Send this after user successfully completes the user profile onboarding",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "All",
+					notification_description: "Schedule Knowledge Sessions - explore",
+					one_liner:
+						"Talk to Experts around the world! Explore and schedule Knowledge Sessions.",
+					time_of_action:
+						"Send this after 48 hours of completion of profile onboarding",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "All",
+					notification_description:
+						"Become a Host and create your first Knowledge Session on Hivepath!",
+					one_liner:
+						"Share your experiences to help others! Become a Knowledge Session Host today!",
+					time_of_action:
+						"Send this after 48 hours of completion of profile onboarding",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "All",
+					notification_description:
+						"When a user starts following you in Hivepath. ",
+					one_liner:
+						"<username> just started following you! Follow them back maybe?",
+					time_of_action:
+						"Sent to the followed person when a user clicks follow on their profile.",
+					category: "Public profile onboarding",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"you are just a few steps away from becoming a Host - Let's finish up!",
+					one_liner:
+						"Just a few steps to go! Complete Knowledge Session onboarding and become a Host!",
+					time_of_action:
+						"Sent after 12 hours, if the hosts drops the onboarding process",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"you are just a few steps away from becoming a Host - Let's finish up!",
+					one_liner:
+						"Your experience can help others! Complete onboarding and create your first Knowledge Session!",
+					time_of_action:
+						"Sent after 48 hours, if the hosts drops the onboarding process",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"you are just a few steps away from becoming a Host - Let's finish up!",
+					one_liner:
+						"Almost there! Complete your Knowledge Session onboarding to share and grow with others.",
+					time_of_action:
+						"Sent after 120 hours, if the hosts drops the onboarding process",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Thank you <username> for submitting your request to become a Host!",
+					one_liner:
+						"Thank you! We have received your request to become a Host. Our team will review and update your status soon!",
+					time_of_action:
+						"Send this after the user submits their onboarding application",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Congratulations <host first name> on becoming a Knowledge Session Host!",
+					one_liner:
+						"Congratulations! Your Knowledge Session has been approved and updated on Hivepath for public view.",
+					time_of_action:
+						"Send this once the user is approved as a knowledge session host",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Sorry <username> your request to become a Host has been declined",
+					one_liner:
+						"Sorry! Your Knowledge Session has been declined for public view on Hivepath. ",
+					time_of_action:
+						"Send this if the user is not approved as a knowledge session host",
+					category: "Host Onbaording Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description: "When an attendee books a session.",
+					one_liner:
+						"<attendee name> requested a session with you <session title>. Please respond to their request!",
+					time_of_action: "When the Attendee books a session with a host",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description: "When Host accepts a session request.",
+					one_liner:
+						"Thank you for accepting <attendee name>’s session request on <session title>. ",
+					time_of_action:
+						"When the host accepts the knowledge session requested by attendee",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description: "When host declines a session request",
+					one_liner:
+						" You just declined <attendee name>’s session request on <session title>. Thank you for your response! ",
+					time_of_action: "If the host declines the knowledge session",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Attendee has cancelled the upcoming knowledge session",
+					one_liner:
+						"<attendee name> has canceled an upcoming session on <session title> ",
+					time_of_action: "If attendee cancels the session",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description: "You have cancelled the knowledge session",
+					one_liner:
+						"You have successfully canceled an upcoming session on <session title> with <attendee name>",
+					time_of_action: "If host cancels the knowledge session",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Add Resources for the upcoming knowledge session",
+					one_liner:
+						"Upload resources to help your attendee learn more about your upcoming Knowledge Session!",
+					time_of_action:
+						"Send this before 12 hours of the knowledge session start time 1. Redirect him/her to the resource addition page",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"24-hour reminder notification before the beginning of a session. ",
+					one_liner: "REMINDER: You have a session in 24-hours. ",
+					time_of_action:
+						"Send a reminder before 24 hours of session start time (in his local)",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"1-hour reminder notification before the beginning of a session.",
+					one_liner:
+						"REMINDER: You have a session in 1-hour. We wish you good luck!",
+					time_of_action:
+						"Send a reminder before 1 hour of session start time (in his local)",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Looks like you have completed your knowledge session",
+					one_liner:
+						"Your Knowledge Session, <session title> with <attendee name> has exceeded its mentioned time! Please respond to give us a status update.",
+					time_of_action:
+						"Send this after 12 hours of the completion time stamp 1. It should have button to select YES, NO 2. If the user selects the button take him/her to the application 3. Have a button to give a feedback to the attendee/session",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"When an attendee shares their feedback for the session/host.",
+					one_liner: "<Attendee> just posted a review for you! ",
+					time_of_action: "Send this after the attendee write any review",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Encouraging social media communication after a session ends.",
+					one_liner:
+						"Share your thoughts on social media! Tell everyone about your experience with Hivepath.",
+					time_of_action: "Send this after user completes a session",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Host",
+					notification_description: "Waitlist request received",
+					one_liner:
+						"<attendee name> just joined the waitlist for <timeslot> on your session, <session title>. Please respond to their request!",
+					time_of_action: "When the knowledge session is in waitlist mode",
+					category: "Host Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "On successful booking of a session.",
+					one_liner:
+						"Thank you! We have received your session request on <session title>  ",
+					time_of_action: "When the Attendee books a session with a host",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "When Host accepts a session request.",
+					one_liner:
+						"Congratulations! Your session request on <session title> has been accepted by the Host <hostname>.",
+					time_of_action:
+						"When the host accepts the knowledge session requested by attendee",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "When Host rejects a session request.",
+					one_liner:
+						"Sorry! Your session request on <session title> has been declined by the Host <hostname>.",
+					time_of_action: "If the host declines the knowledge session",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "you have cancelled the knowledge session",
+					one_liner:
+						"You have successfully canceled an upcoming session on <session title> with <host name>",
+					time_of_action: "If attendee cancels the session",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "Host has cancelled the knowledge session",
+					one_liner:
+						"<host name> has canceled an upcoming session on <session title> due to <reason of cancelation>  ",
+					time_of_action: "If host cancels the knowledge session",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "Host has added few resources",
+					one_liner:
+						"<hostname> for the upcoming session <session title> has uploaded new resources.",
+					time_of_action:
+						"Send this after host add any resource (after 15 mins)",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"24-hour reminder notification before the beginning of a session. ",
+					one_liner: "REMINDER: You have a session in 24-hours. ",
+					time_of_action:
+						"Send a reminder before 24 hours of session start time (in his local)",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"1-hour reminder notification before the beginning of a session.",
+					one_liner:
+						"REMINDER: You have a session in 1-hour. We wish you good luck!",
+					time_of_action:
+						"Send a reminder before 1 hour of session start time (in his local)",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"Looks like you have completed your knowledge session",
+					one_liner:
+						"Your Knowledge Session, <session title> with <host name> has exceeded its mentioned time! Please respond to give us a status update.",
+					time_of_action:
+						"Send this after 12 hours of the completion time stamp 1. It should have button to select YES, NO 2. If the user selects the button take him/her to the application 3. Have a button to give a review to the host",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "You got added to the wailist",
+					one_liner:
+						"You have been successfully added to the waitlist for <timeslot> on the session, <session title>.",
+					time_of_action:
+						"Send this to attendee when he/she gets added to the waitlist 1. Have button to decline the session",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description: "Automatic decline of your waitlist",
+					one_liner:
+						"Sorry! Your waitlisted session request for <timeslot> on the session, <session title> has been declined. ",
+					time_of_action:
+						"When the host accept other user request, then other users in the waitlist will recive an automatic declination",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"Feedback received for your knowledge session",
+					one_liner:
+						"<Host Name> their feedback on your recent interaction with them for <session title>. Click view. ",
+					time_of_action: "Send this after the hosts write any feedback",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"Encouraging social media communication after a session ends.",
+					one_liner:
+						"Share your thoughts on social media! Tell everyone about your experience with Hivepath.",
+					time_of_action: "Send this after user completes their session",
+					category: "Attendee Knowledge sessions Notifications",
+				},
+				{
+					type: "All",
+					notification_description: "Refer Hivepath to your network",
+					one_liner:
+						"Help your network find experts too! Refer Hivepath and spread the word around!",
+					time_of_action: "Send after 72 hours of user profile completion",
+					category: "Referral Notifications",
+				},
+				{
+					type: "Attendee",
+					notification_description:
+						"Loving the platform - Refer to your network",
+					one_liner:
+						"Share your session experiences and invite others to join! - Refer Hivepath to your network!",
+					time_of_action:
+						"Send after the attendee complete his/her first session with the platform (72 hours after the completion of the first session)",
+					category: "Referral Notifications",
+				},
+				{
+					type: "Host",
+					notification_description:
+						"Loving the platform - Refer to your network to join your sessions",
+					one_liner:
+						"Grow your audience by inviting more people into your network - Refer & share your Hivepath experiences!",
+					time_of_action:
+						"Send after the host completes his/her first session with the platform ( 72 hours after the completion of the first session)",
+					category: "Referral Notifications",
+				},
+			];
+			function notificationTableCreate() {
+				const result = notificationData;
+				let table_data = {};
+				result.forEach((item) => {
+					if (item.category in table_data) {
+						table_data[item.category].push(item);
+					} else {
+						table_data[item.category] = [item];
+					}
+				});
+
+				let currentRow = "";
+
+				Object.keys(table_data).forEach((item) => {
+					let count = 0;
+					$("#notificationTableBody").append(
+						`<tr class="header1"><td colspan="10" align="center">${item}</td></tr>
+													<tr class="header2">
+														<td>S no.</td>
+														<td>User</td>
+														<td>Notification Description</td>
+														<td>One-liner</td>
+														<td>Time of Action</td>
+														<td>Redirected to</td>
+														<td>Redirected page link</td>
+														<td>App redirection Link</td>
+														<td>backend status</td>
+														<td>Testing</td>
+													</tr>`
+					);
+
+					table_data[item].forEach((item) => {
+						currentRow = `<tr>`;
+						count++;
+						const {
+							category,
+							type,
+							notification_description,
+							one_liner,
+							time_of_action,
+							redirected_to,
+							redirected_page_link,
+							app_redirection_link,
+							backend,
+							testing,
+						} = item;
+
+						// let viewLink = `<a href="${http_link}" target="_blank">View</a>`;
+						// let downloadLink = `<a href="${http_link}" target="_blank" download="template">Download</a>`;
+						// if (!http_link) {
+						// 	viewLink = "";
+						// 	downloadLink = "";
+						// }
+						// const metadata_split = metadata.map((item) => item.key).join(",");
+
+						currentRow += `
+													<td>${count}</td>
+													<td>${type}</td>
+													<td>${notification_description}</td>
+													<td>${one_liner}</td>
+													<td>${time_of_action}</td>
+													<td>${redirected_to || "-"}</td>
+													<td>${redirected_page_link || "-"}</td>
+													<td>${app_redirection_link || "-"}</td>
+													<td>${backend || "-"}</td>
+													<td>${testing || "-"}</td>
+												`;
+						currentRow += "</tr>";
+						$("#notificationTableBody").append(`${currentRow}`);
+					});
+				});
+
+				// const fetchDataUrl =
+				// 	"https://utils.hivepath.io/api/notificationMasterEmails";
+				// $.ajax({
+				// 	type: "POST",
+				// 	url: fetchDataUrl,
+				// 	contentType: "application/json",
+				// 	dataType: "json",
+				// 	data: JSON.stringify({}),
+				// 	success: function (response) {
+				// 		//if request if made successfully then the response represent the data
+				// 		const { status, result } = response; //result
+				// 		if (status === "success") {
+				// 			// const result = data.result || [];
+				// 			let table_data = {};
+				// 			result.forEach((item) => {
+				// 				if (item.category in table_data) {
+				// 					table_data[item.category].push(item);
+				// 				} else {
+				// 					table_data[item.category] = [item];
+				// 				}
+				// 			});
+
+				// 			let currentRow = "";
+
+				// 			Object.keys(table_data).forEach((item) => {
+				// 				let count = 0;
+				// 				$("#tableBody").append(
+				// 					`<tr class="header1"><td colspan="9" align="center">${item}</td></tr>
+				// 						<tr class="header2">
+				// 							<td>S no.</td>
+				// 							<td>User</td>
+				// 							<td>Notification Description</td>
+				// 							<td>One-liner</td>
+				// 							<td>Time of Action</td>
+				// 							<td>Redirected to</td>
+				// 							<td>Redirected page link</td>
+				// 							<td>App redirection Link</td>
+				// 							<td>backend status</td>
+				// 							<td>Testing</td>
+				// 						</tr>`
+				// 				);
+
+				// 				table_data[item].forEach((item) => {
+				// 					currentRow = `<tr>`;
+				// 					count++;
+				// 					const {
+				// 						email_subject,
+				// 						email_title,
+				// 						http_link,
+				// 						time_of_action,
+				// 						type,
+				// 						mobile_compatible,
+				// 						metadata,
+				// 					} = item;
+
+				// 					let viewLink = `<a href="${http_link}" target="_blank">View</a>`;
+				// 					let downloadLink = `<a href="${http_link}" target="_blank" download="template">Download</a>`;
+				// 					if (!http_link) {
+				// 						viewLink = "";
+				// 						downloadLink = "";
+				// 					}
+				// 					const metadata_split = metadata
+				// 						.map((item) => item.key)
+				// 						.join(",");
+
+				// 					currentRow += `
+				// 						<td>${count}</td>
+				// 						<td>${type}</td>
+				// 						<td>${email_title}</td>
+				// 						<td>${email_subject}</td>
+				// 						<td>${time_of_action}</td>
+				// 						<td>${metadata_split}</td>
+				// 						<td>${viewLink}</td>
+				// 						<td>${downloadLink}</td>
+				// 						<td>${mobile_compatible}</td>
+				// 					`;
+				// 					currentRow += "</tr>";
+				// 					$("#tableBody").append(`${currentRow}`);
+				// 				});
+				// 			});
+				// 		} else {
+				// 			alert("There was an error in fetching the data.");
+				// 			console.log(response);
+				// 		}
+				// 	},
+				// 	error: function (response) {
+				// 		alert("There was an error, please try again");
+				// 		console.log(response);
+				// 	},
+				// });
+			}
+		</script>
+	</body>
+</html>

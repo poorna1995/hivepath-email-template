@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="x-apple-disable-message-reformatting" />
+		<title></title>
+		<!-- font family -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter:wght@500&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- font import end -->
+
+		<style>
+			body {
+				font-family: DM Sans, sans-serif;
+				font-size: 18px;
+				margin-top: 5px;
+				color: #222222;
+				/* font-weight: 500; */
+				/* letter-spacing: 0.02em; */
+				margin: 0;
+				background: #f3f3f3;
+				line-height: 28px;
+			}
+			.noPadding{
+				margin-top: 0;
+				padding: 0;
+			}
+			h6 {
+				padding: 0;
+				margin: 0;
+				font-size: 18px;
+			}
+			.fullwidth {
+				width: 100%;
+			}
+			.masterTable {
+				width: 100%;
+				max-width: 700px;
+				margin: 0 auto;
+				background: white;
+			}
+
+			/* header styles */
+			.logo {
+				width: 140px;
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+
+			/* content styles */
+			.contentTable {
+				padding: 20px;
+				padding-top: 0;
+			}
+
+			.primaryButton {
+				text-decoration: none;
+				display: inline-block;
+				background: #484a9e;
+				border-radius: 10px;
+				padding: 8px 20px;
+				color: white;
+				font-weight: 500;
+				font-size: 15px;
+				letter-spacing: 0.03em;
+			}
+
+			/*footer styles*/
+			.footerTable {
+				background-color: #f6f6f6;
+				width: 100%;
+				padding: 10px 0 0 0;
+				font-size: 11px;
+				font-weight: 400;
+				color: #333333cc;
+				text-align: center;
+
+				display: flex;
+			}
+			.footerTable > div > span,
+			a {
+				margin-right: 5px;
+			}
+			.footerTable a {
+				text-decoration: none;
+				color: #333333cc;
+			}
+			.bfcImg {
+				margin-right: 10px;
+			}
+			.footer-cell1 {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+				margin-left: 5%;
+			}
+			.footer-cell2 {
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+			}
+			.block-footer-cell {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+			}
+			.block-footer-cell img {
+				width: 30px;
+			}
+
+			@media only screen and (max-width: 768px) {
+				body {
+					font-size: 16px !important;
+				}
+				.headContainer {
+					height: 150px !important;
+				}
+				.primaryButton {
+					font-size: 14px !important;
+					/* padding: 10px !important; */
+				}
+				.stepContainer img {
+					width: 120px !important;
+				}
+				.footerTable {
+					display: block !important;
+				}
+				.footer-cell1 {
+					width: 100% !important;
+					margin-left: 0 !important;
+				}
+				.footer-cell2 {
+					width: 100% !important;
+				}
+				.block-footer-cell {
+					width: 100% !important;
+					display: block !important;
+					margin: 0 auto !important;
+					margin-top: 10px !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<table class="masterTable" cellspacing="0" cellpadding="0">
+			<!-- Header section -->
+			<tr>
+				<td
+					class="headContainer"
+					style="
+						background-image: url('../../../images/welcome/head_image.png');
+						height: 250px;
+						background-size: contain;
+						background-repeat: no-repeat;
+						display: flex;
+					"
+				>
+					<a href="https://app.hivepath.io/"
+						><img src="../../../images/common/logo.png" alt="log" class="logo"
+					/></a>
+				</td>
+			</tr>
+
+			<!-- Content section -->
+			<tr>
+				<td>
+					<table class="contentTable">
+						<tr>
+							<td><h6>Hello Ray,</h6></td>
+						</tr>
+						<tr>
+							<td>
+								<p class="noPadding">
+									<strong>Thank you for registering with Hivepath!</strong>
+									<img
+										src="../../../images/welcome/celberation.png"
+										alt="celeberation"
+										style="width: 30px; margin-bottom: -5px"
+									/>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="noPadding">
+									To provide you with the best experience, we need to know a few
+									things about you first.
+									<br /><br />
+
+									Please complete your General onboarding and allow us to use
+									your information to find you the best people to learn,
+									connect, and share your experiences with!
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<a href="https://app.hivepath.io/welcome" class="primaryButton">Complete General onboarding</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p style="margin-bottom: 50px">
+									<strong>Please note</strong>: This is an important step and
+									cannot be skipped. All the details submitted here will be used
+									for your user profile.
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<span>Regards</span>
+								<br />
+								<strong>Team Hivepath</strong>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<!-- footer section -->
+			<tr>
+				<td>
+					<div class="footerTable">
+						<!-- <div class="footerOneContainer"> -->
+						<div class="footer-cell1"><span>@2021 Hivepath</span></div>
+
+						<div class="footer-cell2">
+							<span><a href="#">Help center</a> |</span>
+							<span><a href="#"> Privacy Policy </a> |</span>
+							<span><a href="#">Terms of use</a> </span>
+						</div>
+						<!-- </div> -->
+						<div class="block-footer-cell">
+							<a href="https://twitter.com/Hivepath1" class="bfcImg">
+								<img src="../../../images/social/twitter.png" alt="twitter"
+							/></a>
+							<a
+								href="https://www.linkedin.com/company/hivepath-newagenetworkingplatform"
+								class="bfcImg"
+							>
+								<img src="../../../images/social/linkedin.png" alt="linkedin"
+							/></a>
+
+							<a href="https://www.facebook.com/Hivepath-110065848067921">
+								<img src="../../../images/social/fb.png" alt="fb"
+							/></a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

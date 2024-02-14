@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="x-apple-disable-message-reformatting" />
+		<title></title>
+		<!-- font family -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- font import end -->
+
+		<style>
+			body {
+				font-family: DM Sans, sans-serif;
+				font-size: 18px;
+				margin-top: 5px;
+				color: #222222;
+				/* font-weight: 500; */
+				/* letter-spacing: 0.02em; */
+				margin: 0;
+				background: #f3f3f3;
+				line-height: 28px;
+			}
+			.noMarginTop {
+				margin-top: 0;
+				padding: 0;
+			}
+			h6 {
+				padding: 0;
+				margin: 0;
+				font-size: 18px;
+			}
+			.fullwidth {
+				width: 100%;
+			}
+			.masterTable {
+				width: 100%;
+				max-width: 700px;
+				margin: 0 auto;
+				background: white;
+			}
+
+			/* header styles */
+			.logo {
+				width: 140px;
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+
+			/* content styles */
+			.contentTable {
+				padding: 20px;
+				padding-top: 0;
+			}
+			.cardContainer {
+				border: 1px solid rgba(0, 0, 0, 0.1);
+				border-radius: 10px;
+				padding: 10px 20px;
+				margin-bottom: 20px;
+			}
+			.cardChipContainer {
+				float: right;
+				margin-top: 10px;
+			}
+			.cardChip {
+				background: #1829c41a;
+				box-shadow: 0px 0px 24px 4px rgba(72, 74, 158, 0.06);
+				border-radius: 39px;
+				width: fit-content;
+				padding: 5px 18px;
+				font-size: 15px;
+			}
+			.chipText {
+				color: #1829c4;
+				font-weight: bold;
+			}
+			.sessionThumbnail {
+				width: 100%;
+			}
+			.tagsContainer > div {
+				background: #ececec;
+				border-radius: 50px;
+				padding: 10px 15px;
+				line-height: normal;
+				font-weight: bold;
+				font-size: 12px;
+				margin-right: 5px;
+				margin-bottom: 5px;
+				margin-top: 5px;
+				display: inline-block;
+				width: fit-content;
+			}
+			.hostDetails {
+				display: flex;
+				justify-content: space-between;
+			}
+			.requestDetails {
+				display: flex;
+				align-items: center;
+			}
+			.userImage {
+				height: 45px;
+				border-radius: 50%;
+			}
+			.userName {
+				color: #333333;
+				font-size: 18px;
+				font-weight: 600;
+				margin: 0;
+				padding: 0;
+				margin-bottom: 4px;
+				/* padding-top: 12px; */
+				line-height: normal;
+			}
+			.subtitle {
+				font-size: 14px;
+				line-height: normal;
+				margin: 0;
+				padding: 0;
+			}
+			.timestamp {
+				font-size: 16px;
+				margin: -5px 0 0 10px;
+				line-height: normal;
+			}
+			.primaryButton {
+				text-decoration: none;
+				display: inline-block;
+				background: #484a9e;
+				border-radius: 10px;
+				padding: 8px 20px;
+				color: white;
+				font-weight: 500;
+				font-size: 15px;
+				letter-spacing: 0.03em;
+			}
+			.greet {
+				color: #494949;
+				font-weight: bold;
+			}
+			.noPadding {
+				margin: 0;
+				padding: 0;
+				line-height: normal;
+			}
+			.requestText {
+				margin: 0;
+				padding: 0;
+				font-size: 14px;
+				line-height: normal;
+			}
+
+			/*new*/
+
+			.stepContainer {
+				display: flex;
+				margin-bottom: 10px;
+			}
+			.stepContainer p {
+				margin: 0;
+			}
+			.stepContainer img {
+				width: 30px;
+				margin-right: 15px;
+				margin-bottom: 40px;
+			}
+			.linkText {
+				color: #051ad7;
+			}
+			.defaultButton {
+				text-decoration: none;
+				height: 34px;
+				background: #ececec;
+				border-radius: 10px;
+				padding: 15px 20px;
+				color: black;
+				font-weight: bold;
+				font-size: 12px;
+			}
+			.sessionTitle {
+				padding: 0;
+				margin: 0;
+				line-height: normal;
+			}
+			.hostText {
+				padding: 0;
+				margin: 0;
+				font-size: 14px;
+				margin-left: 10px;
+			}
+			.userTable {
+				float: left;
+			}
+			.timeTable {
+				float: right;
+				margin-top: 7px;
+			}
+			.timeTable img {
+				display: block;
+				width: 26px;
+			}
+
+			/*footer styles*/
+			.footerTable {
+				background-color: #f6f6f6;
+				width: 100%;
+				padding: 10px 0 0 0;
+				font-size: 11px;
+				font-weight: 400;
+				color: #333333cc;
+				text-align: center;
+
+				display: flex;
+			}
+			.footerTable > div > span,
+			a {
+				margin-right: 5px;
+			}
+			.footerTable a {
+				text-decoration: none;
+				color: #333333cc;
+			}
+			.bfcImg {
+				margin-right: 10px;
+			}
+			.footer-cell1 {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+				margin-left: 5%;
+			}
+			.footer-cell2 {
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+			}
+			.block-footer-cell {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+			}
+			.block-footer-cell img {
+				width: 30px;
+			}
+
+			@media only screen and (max-width: 768px) {
+				body {
+					font-size: 16px;
+				}
+				.headContainer {
+					height: 100px !important;
+				}
+				.primaryButton {
+					padding: 10px !important;
+				}
+				.cardContainer {
+					padding: 10px 5px;
+				}
+
+				.tagsContainer > div {
+					padding: 5px 15px;
+					font-size: 10px;
+				}
+				.userName {
+					font-size: 14px;
+				}
+				.requestText {
+					font-size: 12px;
+				}
+				.timestamp {
+					font-size: 14px;
+					margin-bottom: 5px;
+				}
+				.cardChip {
+					font-size: 12px;
+				}
+
+				.stepContainer img {
+					margin-bottom: 70px;
+				}
+				.timeTable {
+					float: left;
+				}
+				.hostText {
+					margin: 0;
+				}
+
+				/* footer */
+				.footerTable {
+					display: block !important;
+				}
+				.footer-cell1 {
+					width: 100% !important;
+					margin-left: 0 !important;
+				}
+				.footer-cell2 {
+					width: 100% !important;
+				}
+				.block-footer-cell {
+					width: 100% !important;
+					display: block !important;
+					margin: 0 auto !important;
+					margin-top: 10px !important;
+				}
+			}
+		</style>
+	</head>
+	<body
+		style="
+			font-family: DM Sans, sans-serif;
+			font-size: 18px;
+			margin-top: 5px;
+			color: #222222;
+			margin: 0;
+			background: #f3f3f3;
+			line-height: 28px;
+		"
+	>
+		<table
+			class="masterTable"
+			cellspacing="0"
+			cellpadding="0"
+			style="width: 100%; max-width: 700px; margin: 0 auto; background: white"
+		>
+			<!-- Header section -->
+			<tr>
+				<td
+					class="headContainer"
+					style="
+						background-image: url('../../../images/common/header-background.png');
+						height: 150px;
+						background-size: contain;
+						background-repeat: no-repeat;
+						display: flex;
+					"
+				>
+					<a href="https://app.hivepath.io/" style="margin-right: 5px"
+						><img
+							src="../../../images/common/logo.png"
+							alt="log"
+							class="logo"
+							style="width: 140px; margin-left: 20px; margin-top: 20px"
+					/></a>
+				</td>
+			</tr>
+
+			<!-- Content section -->
+			<tr>
+				<td>
+					<table class="contentTable" style="padding: 20px; padding-top: 0">
+						<tr>
+							<td>
+								<h6 style="padding: 0; margin: 0; font-size: 18px">
+									Hello Ray,
+								</h6>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="noMarginTop" style="margin-top: 0; padding: 0">
+									Your Host uploaded new resources for the upcoming session,
+									<strong
+										>“Getting into tech without a Computer Science degree”.
+									</strong>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="noMarginTop" style="margin-top: 0; padding: 0">
+									Please take a look at them and prepare yourself for the
+									session accordingly.
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p style="margin-bottom: 5px; display: inline-block">
+									<strong>Session details:</strong>
+								</p>
+								<div
+									class="cardChipContainer"
+									style="float: right; margin-top: 10px"
+								>
+									<div
+										class="cardChip"
+										style="
+											background: #1829c41a;
+											box-shadow: 0px 0px 24px 4px rgba(72, 74, 158, 0.06);
+											border-radius: 39px;
+											width: fit-content;
+											padding: 5px 18px;
+											font-size: 15px;
+										"
+									>
+										<strong>Status :</strong>
+										<span
+											class="chipText"
+											style="color: #1829c4; font-weight: bold"
+											>Accepted
+										</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div
+									class="cardContainer"
+									style="
+										border: 1px solid rgba(0, 0, 0, 0.1);
+										border-radius: 10px;
+										padding: 10px 20px;
+										margin-bottom: 20px;
+									"
+								>
+									<table>
+										<tr>
+											<td style="width: 30%; vertical-align: top">
+												<img
+													src="../../../images/ks/card-placeholder.svg"
+													alt="thumbnail"
+													class="sessionThumbnail"
+													style="width: 100%"
+												/>
+											</td>
+											<td style="padding-left: 10px">
+												<p
+													class="sessionTitle"
+													style="padding: 0; margin: 0; line-height: normal"
+												>
+													<strong
+														>Getting into tech without a Computer Science degree
+													</strong>
+												</p>
+												<div class="tagsContainer">
+													<div
+														style="
+															background: #ececec;
+															border-radius: 50px;
+															padding: 10px 15px;
+															line-height: normal;
+															font-weight: bold;
+															font-size: 12px;
+															margin-right: 5px;
+															margin-bottom: 5px;
+															margin-top: 5px;
+															display: inline-block;
+															width: fit-content;
+														"
+													>
+														#Data Science
+													</div>
+													<div
+														style="
+															background: #ececec;
+															border-radius: 50px;
+															padding: 10px 15px;
+															line-height: normal;
+															font-weight: bold;
+															font-size: 12px;
+															margin-right: 5px;
+															margin-bottom: 5px;
+															margin-top: 5px;
+															display: inline-block;
+															width: fit-content;
+														"
+													>
+														#Tech
+													</div>
+													<div
+														style="
+															background: #ececec;
+															border-radius: 50px;
+															padding: 10px 15px;
+															line-height: normal;
+															font-weight: bold;
+															font-size: 12px;
+															margin-right: 5px;
+															margin-bottom: 5px;
+															margin-top: 5px;
+															display: inline-block;
+															width: fit-content;
+														"
+													>
+														#Python
+													</div>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<table style="width: 100%">
+										<tr>
+											<td align="left">
+												<table class="userTable" style="float: left">
+													<tr>
+														<td>
+															<p
+																class="hostText"
+																style="
+																	padding: 0;
+																	margin: 0;
+																	font-size: 14px;
+																	margin-left: 10px;
+																"
+															>
+																<strong>Host</strong>
+															</p>
+															<table>
+																<tr>
+																	<td>
+																		<img
+																			src="../../../images/ks/user-image.svg"
+																			alt="user image"
+																			class="userImage"
+																			style="height: 45px; border-radius: 50%"
+																		/>
+																	</td>
+																	<td
+																		style="
+																			vertical-align: top;
+																			padding-left: 10px;
+																		"
+																	>
+																		<h6
+																			class="userName"
+																			style="
+																				padding: 0;
+																				margin: 0;
+																				font-size: 18px;
+																				color: #333333;
+																				font-weight: 600;
+																				margin-bottom: 4px;
+																				line-height: normal;
+																			"
+																		>
+																			Wade Warren
+																		</h6>
+																		<p
+																			class="subtitle"
+																			style="
+																				font-size: 14px;
+																				line-height: normal;
+																				margin: 0;
+																				padding: 0;
+																			"
+																		>
+																			UI Designer at Hivepath
+																		</p>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+
+												<table
+													class="timeTable"
+													style="float: right; margin-top: 7px"
+												>
+													<tr>
+														<td>
+															<p
+																class="requestText"
+																style="
+																	margin: 0;
+																	padding: 0;
+																	font-size: 14px;
+																	line-height: normal;
+																"
+															>
+																<strong>Requested date & time:</strong>
+															</p>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<table style="margin-top: 8px">
+																<tr>
+																	<td>
+																		<img
+																				src="../../../images/ks/calendar.png"
+																				alt="calendar image"
+																				style="display: inline-block;width: 26px;"
+																			/>
+																	</td>
+																	<td>
+																		<p
+																			class="timestamp"
+																			style="
+																				font-size: 16px;
+																				margin: -5px 0 0 10px;
+																				line-height: normal;
+																			"
+																		>
+																			Friday, November 5, 5:00 PM (GMT)
+																		</p>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<a
+									href="#"
+									class="primaryButton"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										display: inline-block;
+										background: #484a9e;
+										border-radius: 10px;
+										padding: 8px 20px;
+										color: white;
+										font-weight: 500;
+										font-size: 15px;
+										letter-spacing: 0.03em;
+									"
+									>View Resources</a
+								>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<p style="margin-bottom: 30px; font-weight: 500">
+									We hope you find them useful!
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<span class="greet" style="color: #494949; font-weight: bold"
+									>Cheers</span
+								>
+								<br />
+								<strong>Team Hivepath</strong>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<!-- footer section -->
+			<tr>
+				<td>
+					<div
+						class="footerTable"
+						style="
+							background-color: #f6f6f6;
+							width: 100%;
+							padding: 10px 0 0 0;
+							font-size: 11px;
+							font-weight: 400;
+							color: #333333cc;
+							text-align: center;
+							display: flex;
+						"
+					>
+						<!-- <div class="footerOneContainer"> -->
+						<div
+							class="footer-cell1"
+							style="
+								display: inline-block;
+								text-align: center;
+								width: 20%;
+								margin-left: 5%;
+							"
+						>
+							<span style="margin-right: 5px">@2021 Hivepath</span>
+						</div>
+
+						<div
+							class="footer-cell2"
+							style="display: inline-block; text-align: center; width: 50%"
+						>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+									>Help center</a
+								>
+								|</span
+							>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+								>
+									Privacy Policy
+								</a>
+								|</span
+							>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+									>Terms of use</a
+								>
+							</span>
+						</div>
+						<!-- </div> -->
+						<div
+							class="block-footer-cell"
+							style="display: inline-block; text-align: center; width: 20%"
+						>
+							<a
+								href="https://twitter.com/Hivepath1"
+								class="bfcImg"
+								style="
+									margin-right: 10px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/twitter.png"
+									alt="twitter"
+									style="width: 30px"
+							/></a>
+							<a
+								href="https://www.linkedin.com/company/hivepath-newagenetworkingplatform"
+								class="bfcImg"
+								style="
+									margin-right: 10px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/linkedin.png"
+									alt="linkedin"
+									style="width: 30px"
+							/></a>
+
+							<a
+								href="https://www.facebook.com/Hivepath-110065848067921"
+								style="
+									margin-right: 5px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/fb.png"
+									alt="fb"
+									style="width: 30px"
+							/></a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

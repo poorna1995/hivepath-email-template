@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:o="urn:schemas-microsoft-com:office:office"
+>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="x-apple-disable-message-reformatting" />
+		<title></title>
+		<!-- font family -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<!-- font import end -->
+
+		<style>
+			body {
+				font-family: DM Sans, sans-serif;
+				font-size: 18px;
+				margin-top: 5px;
+				color: #222222;
+				/* font-weight: 500; */
+				/* letter-spacing: 0.02em; */
+				margin: 0;
+				background: #f3f3f3;
+				line-height: 28px;
+			}
+			.noPadding {
+				margin-top: 0;
+				padding: 0;
+			}
+			h6 {
+				padding: 0;
+				margin: 0;
+				font-size: 18px;
+			}
+			.fullwidth {
+				width: 100%;
+			}
+			.masterTable {
+				width: 100%;
+				max-width: 700px;
+				margin: 0 auto;
+				background: white;
+			}
+
+			/* header styles */
+			.logo {
+				width: 140px;
+				margin-left: 20px;
+				margin-top: 20px;
+			}
+
+			/* content styles */
+			.contentTable {
+				padding: 20px;
+				padding-top: 0;
+			}
+
+			.primaryButton {
+				text-decoration: none;
+				display: inline-block;
+				background: #484a9e;
+				border-radius: 10px;
+				padding: 8px 20px;
+				color: white;
+				font-weight: 500;
+				font-size: 15px;
+				letter-spacing: 0.03em;
+			}
+
+			.subtitle {
+				font-size: 16px;
+				margin-bottom: 20px;
+			}
+
+			/*footer styles*/
+			.footerTable {
+				background-color: #f6f6f6;
+				width: 100%;
+				padding: 10px 0 0 0;
+				font-size: 11px;
+				font-weight: 400;
+				color: #333333cc;
+				text-align: center;
+
+				display: flex;
+			}
+			.footerTable > div > span,
+			a {
+				margin-right: 5px;
+			}
+			.footerTable a {
+				text-decoration: none;
+				color: #333333cc;
+			}
+			.bfcImg {
+				margin-right: 10px;
+			}
+			.footer-cell1 {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+				margin-left: 5%;
+			}
+			.footer-cell2 {
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+			}
+			.block-footer-cell {
+				display: inline-block;
+				text-align: center;
+				width: 20%;
+			}
+			.block-footer-cell img {
+				width: 30px;
+			}
+
+			@media only screen and (max-width: 768px) {
+				body {
+					font-size: 16px !important;
+				}
+				.headContainer {
+					height: 150px !important;
+				}
+				.primaryButton {
+					font-size: 14px !important;
+					/* padding: 10px !important; */
+				}
+				.stepContainer img {
+					width: 120px !important;
+				}
+				.footerTable {
+					display: block !important;
+				}
+				.footer-cell1 {
+					width: 100% !important;
+					margin-left: 0 !important;
+				}
+				.footer-cell2 {
+					width: 100% !important;
+				}
+				.block-footer-cell {
+					width: 100% !important;
+					display: block !important;
+					margin: 0 auto !important;
+					margin-top: 10px !important;
+				}
+			}
+		</style>
+	</head>
+	<body
+		style="
+			font-family: DM Sans, sans-serif;
+			font-size: 18px;
+			margin-top: 5px;
+			color: #222222;
+			margin: 0;
+			background: #f3f3f3;
+			line-height: 28px;
+		"
+	>
+		<table
+			class="masterTable"
+			cellspacing="0"
+			cellpadding="0"
+			style="width: 100%; max-width: 700px; margin: 0 auto; background: white"
+		>
+			<!-- Header section -->
+			<tr>
+				<td
+					class="headContainer"
+					style="
+						background-image: url('../../../images/reset-password/head-image.png');
+						height: 245px;
+						background-size: contain;
+						background-repeat: no-repeat;
+						display: flex;
+					"
+				>
+					<a href="https://app.hivepath.io/" style="margin-right: 5px"
+						><img
+							src="../../../images/common/logo.png"
+							alt="log"
+							class="logo"
+							style="width: 140px; margin-left: 20px; margin-top: 20px"
+					/></a>
+				</td>
+			</tr>
+
+			<!-- Content section -->
+			<tr>
+				<td>
+					<table class="contentTable" style="padding: 20px; padding-top: 0">
+						<tr>
+							<td>
+								<h6 style="padding: 0; margin: 0; font-size: 18px">
+									Hello Ray,
+								</h6>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="noPadding" style="margin-top: 0; padding: 0">
+									Thank you for joining Hivepath! <br />
+									We can’t wait for you to join our network. Please click on the
+									button below to <strong>verify your email</strong> -
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<a
+									href="#"
+									class="primaryButton"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										display: inline-block;
+										background: #484a9e;
+										border-radius: 10px;
+										padding: 8px 20px;
+										color: white;
+										font-weight: 500;
+										font-size: 15px;
+										letter-spacing: 0.03em;
+									"
+									>Verify email</a
+								>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p
+									class="subtitle"
+									style="font-size: 16px; margin-bottom: 20px"
+								>
+									Please note: This link will expire in 30 minutes.
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<span>Regards</span>
+								<br />
+								<strong>Team Hivepath</strong>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<!-- footer section -->
+			<tr>
+				<td>
+					<div
+						class="footerTable"
+						style="
+							background-color: #f6f6f6;
+							width: 100%;
+							padding: 10px 0 0 0;
+							font-size: 11px;
+							font-weight: 400;
+							color: #333333cc;
+							text-align: center;
+							display: flex;
+						"
+					>
+						<!-- <div class="footerOneContainer"> -->
+						<div
+							class="footer-cell1"
+							style="
+								display: inline-block;
+								text-align: center;
+								width: 20%;
+								margin-left: 5%;
+							"
+						>
+							<span style="margin-right: 5px">@2021 Hivepath</span>
+						</div>
+
+						<div
+							class="footer-cell2"
+							style="display: inline-block; text-align: center; width: 50%"
+						>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+									>Help center</a
+								>
+								|</span
+							>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+								>
+									Privacy Policy
+								</a>
+								|</span
+							>
+							<span style="margin-right: 5px"
+								><a
+									href="#"
+									style="
+										margin-right: 5px;
+										text-decoration: none;
+										color: #333333cc;
+									"
+									>Terms of use</a
+								>
+							</span>
+						</div>
+						<!-- </div> -->
+						<div
+							class="block-footer-cell"
+							style="display: inline-block; text-align: center; width: 20%"
+						>
+							<a
+								href="https://twitter.com/Hivepath1"
+								class="bfcImg"
+								style="
+									margin-right: 10px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/twitter.png"
+									alt="twitter"
+									style="width: 30px"
+							/></a>
+							<a
+								href="https://www.linkedin.com/company/hivepath-newagenetworkingplatform"
+								class="bfcImg"
+								style="
+									margin-right: 10px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/linkedin.png"
+									alt="linkedin"
+									style="width: 30px"
+							/></a>
+
+							<a
+								href="https://www.facebook.com/Hivepath-110065848067921"
+								style="
+									margin-right: 5px;
+									text-decoration: none;
+									color: #333333cc;
+								"
+							>
+								<img
+									src="../../../images/social/fb.png"
+									alt="fb"
+									style="width: 30px"
+							/></a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

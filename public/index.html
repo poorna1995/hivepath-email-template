@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Welcome to Firebase Hosting</title>
+
+		<!-- update the version number as needed -->
+		<script defer src="/__/firebase/9.6.7/firebase-app-compat.js"></script>
+		<!-- include only the Firebase features as you need -->
+		<script defer src="/__/firebase/9.6.7/firebase-auth-compat.js"></script>
+		<script defer src="/__/firebase/9.6.7/firebase-database-compat.js"></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-firestore-compat.js"
+		></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-functions-compat.js"
+		></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-messaging-compat.js"
+		></script>
+		<script defer src="/__/firebase/9.6.7/firebase-storage-compat.js"></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-analytics-compat.js"
+		></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-remote-config-compat.js"
+		></script>
+		<script
+			defer
+			src="/__/firebase/9.6.7/firebase-performance-compat.js"
+		></script>
+		<!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+		<script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+		<style>
+			body {
+				font-size: 14px;
+			}
+			td {
+				padding: 24px;
+			}
+			.header1 {
+				border: 1px solid black;
+				text-align: center;
+				padding: 10px;
+				background: #bdbdc8;
+				font-weight: bold;
+			}
+			.header2 {
+				text-align: center;
+				padding: 5px;
+				background: #e3e37a;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Hivepath email templates</h1>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const loadEl = document.querySelector("#load");
+				// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+				// // The Firebase SDK is initialized and available here!
+				//
+				// firebase.auth().onAuthStateChanged(user => { });
+				// firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+				// firebase.firestore().doc('/foo/bar').get().then(() => { });
+				// firebase.functions().httpsCallable('yourFunction')().then(() => { });
+				// firebase.messaging().requestPermission().then(() => { });
+				// firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+				// firebase.analytics(); // call to activate
+				// firebase.analytics().logEvent('tutorial_completed');
+				// firebase.performance(); // call to activate
+				//
+				// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+				try {
+					let app = firebase.app();
+					let features = [
+						"auth",
+						"database",
+						"firestore",
+						"functions",
+						"messaging",
+						"storage",
+						"analytics",
+						"remoteConfig",
+						"performance",
+					].filter((feature) => typeof app[feature] === "function");
+					loadEl.textContent = `Firebase SDK loaded with ${features.join(
+						", "
+					)}`;
+				} catch (e) {
+					console.error(e);
+					loadEl.textContent =
+						"Error loading the Firebase SDK, check the console.";
+				}
+			});
+		</script>
+
+		<script>
+			const data = {
+				"Login/Register workflow": [
+					[
+						"All",
+						"Welcome to Hivepath - Let's get you started!",
+						"Welcome to Hivepath - Let's get you started! - Congratulations on a successful registration",
+						"[Communication] Sent after user successfully registers into Hivepath and logs in.",
+						"./emails/production/general/welcome.html",
+						"./emails/production/general/welcome.html",
+						"Y",
+					],
+					[
+						"All",
+						"Action Needed: Reset Password",
+						"Action Needed: Reset Password - Please set a new password for your Hivepath account",
+						"[Action] Sent after user provides their registered email in the forgot password page.",
+						"./emails/production/general/reset-password.html",
+						"./emails/production/general/reset-password.html",
+						"Y",
+					],
+					[
+						"All",
+						"Action Needed: Email Verification",
+						"Action Needed: Email Verification - Please verify your email to register on Hivepath",
+						"[Action] Sent after user provides their email id during their first registration process with Hivepath.",
+						"./emails/production/general/email-verification.html",
+						"./emails/production/general/email-verification.html",
+						"Y",
+					],
+				],
+				"Inital Onboarding": [
+					[
+						"All",
+						"Action Needed: Complete General Onboarding - Please complete your general onboarding",
+						"Action Needed: Complete General Onboarding - Please complete your general onboarding",
+						"[Completion] If the user didn't complete the general onboarding ( 48 hours), send an email to notify him/her",
+						"./emails/production/general/general-onboarding.html",
+						"./emails/production/general/general-onboarding.html",
+						"Y",
+					],
+				],
+				"User Profile Onboarding": [
+					[
+						"All",
+						"User Profile Onboarding - Finish up in 2 minutes! - Please complete your user profile onboarding",
+						"User Profile Onboarding - Finish up in 2 minutes! - Please complete your user profile onboarding",
+						"[Notify] Notify the user in 24 hours to complete profile onboarding",
+						"./emails/production/profile/profile-onboarding.html",
+						"./emails/production/profile/profile-onboarding.html",
+						"Y",
+					],
+					[
+						"All",
+						"Profile Information Approved - Your User Profile onboarding is complete and updated!",
+						"Profile Information Approved - Your User Profile onboarding is complete and updated!",
+						"[Completion] Send this email after successfully completing the user profile onboarding",
+						"./emails/production/profile/profile-approval.html",
+						"./emails/production/profile/profile-approval.html",
+						"Y",
+					],
+				],
+				"Knowledge Session Booking - Attendee": [
+					[
+						"Attendee",
+						"Session Requested",
+						"<attendee first name>, your session request has been sent to <hostname> for Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"When the Attendee books a session with a host",
+						"./emails/production/ks-attendee/session-requested.html",
+						"./emails/production/ks-attendee/session-requested.html",
+						"",
+					],
+					[
+						"Atendee",
+						"Session accepted by host",
+						"<attendee first name> your session request has been accepted by <hostname> for Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"When the host accepts the knowledge session requested by attendee",
+						"./emails/production/ks-attendee/session-accepted.html",
+						"./emails/production/ks-attendee/session-accepted.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Your session request declined by host",
+						" <attendee first name> your session request has been declined by <hostname> for Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"If the host declines the knowledge session - send this email",
+						"./emails/production/ks-attendee/session-declined.html",
+						"./emails/production/ks-attendee/session-declined.html",
+						"",
+					],
+					[
+						"Attendee",
+						"you have cancelled the knowledge session",
+						"<attendee first name> your cancelation request has been accepted successfully",
+						"If attendee cancels the session",
+						"./emails/production/ks-attendee/session-cancelled.html",
+						"./emails/production/ks-attendee/session-cancelled.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Host has cancelled the knowledge session",
+						"<attendee first name> your Host <hostname> has canceled an upcoming session with you",
+						"If host cancels the knowledge session",
+						"./emails/production/ks-attendee/session-cancelled-host.html",
+						"./emails/production/ks-attendee/session-cancelled-host.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Host has added few resources",
+						"<attendee first name> your Host has uploaded new resources for the upcoming Knowledge Session @Wed 22 Dec 2021 02:00 - 02:30 <timezone> ",
+						"Send this email after  host add any resource (after 15 mins) ",
+						"./emails/production/ks-attendee/session-resources-added.html",
+						"./emails/production/ks-attendee/session-resources-added.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Your knowledge session in 24 hours",
+						"Reminder Alert: <user first name> you have a session in 24-hours",
+						"Send a reminder email before 24 hours of session start time (in his local)",
+						"./emails/production/ks-all/session-reminder-24.html",
+						"./emails/production/ks-all/session-reminder-24.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Your knowledge session is in 1 hour",
+						"Reminder Alert: <user first name> you have a session in 1-hour",
+						"Send a reminder email before 1 hour of session start time (in his local)",
+						"./emails/production/ks-all/session-reminder-1.html",
+						"./emails/production/ks-all/session-reminder-1.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Looks like you have completed your knowledge session",
+						"Looks like your Knowledge Session is complete: Here's what you can do next! ",
+						"Send this email after 12 hours of the completion (end time) 1. The email should have button to select YES, NO  2. If the user selects the button redirect him/her to the application 3. Have a button to give a review to the host",
+						"./emails/production/ks-all/session-complete-reminder.html",
+						"./emails/production/ks-all/session-complete-reminder.html",
+						"",
+					],
+					[
+						"Attendee",
+						"You got added to the wailist",
+						"<attendee first name> you have joined the waitlist for <Hostname>'s session @Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"Send this email to attendee when he/she gets added to the waitlist  1. Have button to decline the session ",
+						"./emails/production/ks-attendee/session-waitlist-joined.html",
+						"./emails/production/ks-attendee/session-waitlist-joined.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Automatic decline of your waitlist",
+						"<attendee first name> your session request on waitlist has been declined by <Hostname>",
+						"When the host accept other user request, then other users in the waitlist will recive an automatic decline email ",
+						"./emails/production/ks-attendee/session-waitlist-declined.html",
+						"./emails/production/ks-attendee/session-waitlist-declined.html",
+						"",
+					],
+					[
+						"Attendee",
+						"Feedback received for your knowledge session",
+						"<hostname> just added a feedback on your recent Knowledge Session together - Take a look at what they said!",
+						"Send this email after the hosts write any feedback",
+						"./emails/production/ks-attendee/feedback-received.html",
+						"./emails/production/ks-attendee/feedback-received.html",
+						"",
+					],
+				],
+				"Knowledge Session Booking - Host": [
+					[
+						"Host",
+						"Request received",
+						"<host first name> you have received a session request from <attendee name>",
+						"When the Attendee books a session with a host ",
+						"./emails/production/ks-host/session-requested.html",
+						"./emails/production/ks-host/session-requested.html",
+						"",
+					],
+					[
+						"Host",
+						"You have confirmed the session",
+						"Thank you <host first name> for accepting <attendee name>'s session request scheduled @Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"When the host accepts the knowledge session requested by attendee",
+						"./emails/production/ks-host/session-accepted.html",
+						"./emails/production/ks-host/session-accepted.html",
+						"",
+					],
+					[
+						"Host",
+						"Declined session with <attendee name>",
+						"<host name> you have declined <attendee name>'s session request scheduled @Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"If the host declines the knowledge session - send this email",
+						"./emails/production/ks-host/session-declined.html",
+						"./emails/production/ks-host/session-declined.html",
+						"",
+					],
+					[
+						"Host",
+						"Attendee has cancelled the upcoming knowledge session",
+						"<host first name> your attendee <attendee name> has canceled an upcoming session with you",
+						"If attendee cancels the session",
+						"./emails/production/ks-host/session-cancelled-attendee.html",
+						"./emails/production/ks-host/session-cancelled-attendee.html",
+						"",
+					],
+					[
+						"Host",
+						"You have cancelled the knowledge session",
+						" <host first name> your cancelation request has been accepted successfully",
+						"If host cancels the knowledge session",
+						"./emails/production/ks-host/session-cancelled.html",
+						"./emails/production/ks-host/session-cancelled.html",
+						"",
+					],
+					[
+						"Host",
+						"Add Resources for the upcoming knowledge session",
+						"<hostname> Add resources for your upcoming knowledge session @Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"Send this email before 12 hours of the knowledge session start time 1. Redirect him/her to the resource addition page ",
+						"./emails/production/ks-host/session-resources-add-request.html",
+						"./emails/production/ks-host/session-resources-add-request.html",
+						"",
+					],
+					[
+						"Host",
+						"Your knowledge session with <attendee name> is in 24 hours",
+						"Reminder Alert: <user first name> you have a session in 24-hours",
+						"Send a reminder email before 24 hours of session start time (in his local)",
+						"./emails/production/ks-all/session-reminder-24.html",
+						"./emails/production/ks-all/session-reminder-24.html",
+						"",
+					],
+					[
+						"Host",
+						"Your knowledge session is in 1 hour",
+						"Reminder Alert: <user first name> you have a session in 1-hour",
+						"Send a reminder email before 1 hour of session start time (in his local)",
+						"./emails/production/ks-all/session-reminder-1.html",
+						"./emails/production/ks-all/session-reminder-1.html",
+						"",
+					],
+					[
+						"Host",
+						"Looks like you have completed your knowledge session",
+						"Looks like your Knowledge Session is complete: Here's what you can do next! ",
+						"Send this email after 12 hours of the completion time stamp  1. The email should have button to select YES, NO  2. If the user selects the button take him/her to the application 3. Have a buttont to give a feedback to the attendee",
+						"./emails/production/ks-all/session-complete-reminder.html",
+						"./emails/production/ks-all/session-complete-reminder.html",
+						"",
+					],
+					[
+						"Host",
+						"Waitlist request received",
+						"Waitlist Request: <attendee name> scheduled a session with you @Wed 22 Dec 2021 02:00 - 02:30 <timezone>",
+						"When the knowledge session is in waitlist mode",
+						"./emails/production/ks-host/session-requested-waitlist.html",
+						"./emails/production/ks-host/session-requested-waitlist.html",
+						"",
+					],
+				],
+				"Host Onboarding emails": [
+					[
+						"All - Users",
+						"Become a knowledge session host",
+						"Become a Host and create your first Knowledge Session on Hivepath! ",
+						"Send this email after 48 hours of  completion of  profile onboarding ",
+						"./emails/production/ks-all/become-host.html",
+						"./emails/production/ks-all/become-host.html",
+						"",
+					],
+					[
+						"All - In progress hosts",
+						"Complete your host onboarding",
+						"<username> you are just a few steps away from becoming a Host - Let's finish up!",
+						"Send  after 12 hours, email if the hosts drops the onboarding process",
+						"./emails/production/ks-all/become-host2.html",
+						"./emails/production/ks-all/become-host2.html",
+						"",
+					],
+					[
+						"All - In progress hosts",
+						"Complete your host onboarding",
+						"Halfway there <username>! We can't wait for you to become a Host!",
+						"Send  after 48 hours, email if the hosts drops the onboarding process",
+						"./emails/production/ks-all/become-host-48.html",
+						"./emails/production/ks-all/become-host-48.html",
+						"",
+					],
+					[
+						"All - In progress hosts",
+						"Complete your host onboarding",
+						"Almost there <username>! Finish these few steps and become a Host today!",
+						"Send  after 120 hours, email if the hosts drops the onboarding process",
+						"./emails/production/ks-all/become-host-120.html",
+						"./emails/production/ks-all/become-host-120.html",
+						"",
+					],
+					[
+						"All - In progress hosts",
+						"Submitted your details to become a host",
+						"Thank you <username> for submitting your request to become a Host!",
+						"Send this email after the user submits the onboarding application ",
+						"./emails/production/ks-host/ks-requested-host.html",
+						"./emails/production/ks-host/ks-requested-host.html",
+						"",
+					],
+					[
+						"All - Host",
+						"Your are now a knowledge session host",
+						"Congratulations <host first name> on becoming a Knowledge Session Host!",
+						"Send this email once the user get approved as a knowledge session host ",
+						"./emails/production/ks-host/ks-approved.html",
+						"./emails/production/ks-host/ks-approved.html",
+						"",
+					],
+					[
+						"All - Host",
+						"Your knowledge session host application is declined",
+						"Sorry <username> your request to become a Host has been declined",
+						"Send this email if the user is not approved as a knowledge session host ",
+						"./emails/production/ks-host/declined-host.html",
+						"./emails/production/ks-host/declined-host.html",
+						"",
+					],
+				],
+				"Referral Emails": [
+					[
+						"All - Users",
+						"Refer Hivepath to your network",
+						"Loving the platform <attendee first name>? Refer Hivepath to your network and share your experiences!",
+						"Send an email after 72 hours of  user profile completion",
+						"./emails/production/refer/refer-all.html",
+						"./emails/production/refer/refer-all.html",
+						"",
+					],
+					[
+						"All - Attendee",
+						"Loving the platform - Refer to your network",
+						"Loving the platform <attendee first name>? Refer Hivepath to your network and share your experiences!",
+						"Send an email after the user complete his/her first session with the platform  (72 hours after the completion of the first session)",
+						"./emails/production/refer/refer-attendee.html",
+						"./emails/production/refer/refer-attendee.html",
+						"",
+					],
+					[
+						"All - Host",
+						"Loving the platform - Refer to your network to join your sessions",
+						"Loving the platform <host first name>? Invite your network and share your experience!",
+						"Send an email after the host completes his/her first session with the platform  ( 72 hours after the completion of the first session)",
+						"./emails/production/refer/refer-host.html",
+						"./emails/production/refer/refer-host.html",
+						"",
+					],
+				],
+			};
+
+			function tableCreate() {
+				// tbl.style.width = "100px";
+				headers = [
+					"S no.",
+					"User type",
+					"Email title",
+					"Email subject",
+					"Time of Action",
+					"View template",
+					"Download",
+					"Mobile compatibility",
+				];
+				const body = document.body,
+					tbl = document.createElement("table");
+				tbl.style.border = "1px solid black";
+
+				const dataKeys = Object.keys(data);
+
+				for (let i = 0; i < dataKeys.length; i++) {
+					const Headtr = tbl.insertRow();
+					const category = Headtr.insertCell();
+					category.appendChild(document.createTextNode(dataKeys[i]));
+					category.setAttribute("colSpan", dataKeys.length + 1);
+					category.setAttribute("class", "header1");
+
+					const HeaderRow = tbl.insertRow();
+					headers.forEach((element) => {
+						const row = HeaderRow.insertCell();
+						row.appendChild(document.createTextNode(element));
+						row.setAttribute("class", "header2");
+					});
+
+					const rows = data[dataKeys[i]];
+					for (let j = 0; j < rows.length; j++) {
+						const tr = tbl.insertRow();
+						const indexTd = tr.insertCell();
+						indexTd.appendChild(document.createTextNode(`${j + 1}`));
+						indexTd.style.border = "1px solid black";
+						for (k = 0; k < rows[j].length; k++) {
+							const td = tr.insertCell();
+							if (k === 4 || k === 5) {
+								var createA = document.createElement("a");
+								var createAText = document.createTextNode("View");
+								if (rows[j][k] === "#" || rows[j][k] === "") {
+									var createAText = document.createTextNode("");
+								}
+								createA.setAttribute("target", "_blank");
+								if (k === 5) {
+									if (rows[j][k] === "#" || rows[j][k] === "") {
+										var createAText = document.createTextNode("");
+									} else {
+										var createAText = document.createTextNode("Download");
+										createA.setAttribute("download", "template");
+									}
+								}
+								createA.setAttribute("href", `${rows[j][k]}`);
+								createA.appendChild(createAText);
+								td.appendChild(createA);
+								td.style.border = "1px solid black";
+							} else {
+								td.appendChild(document.createTextNode(`${rows[j][k]}`));
+								td.style.border = "1px solid black";
+							}
+						}
+					}
+				}
+				body.appendChild(tbl);
+			}
+
+			tableCreate();
+		</script>
+	</body>
+</html>
